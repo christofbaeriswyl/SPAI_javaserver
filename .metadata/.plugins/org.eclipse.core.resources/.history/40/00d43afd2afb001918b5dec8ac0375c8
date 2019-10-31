@@ -1,0 +1,5 @@
+package server_udp;
+
+public class Server {
+
+}

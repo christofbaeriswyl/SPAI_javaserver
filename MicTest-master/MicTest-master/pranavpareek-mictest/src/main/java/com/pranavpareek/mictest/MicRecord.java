@@ -14,24 +14,20 @@ import javax.sound.sampled.TargetDataLine;
 public class MicRecord extends Thread {
 
     private AudioFormat format;
-    private DataLine.Info targetInfo;
+    //private DataLine.Info targetInfo;
     private DatagramSocket udpSocket;
     private int port;
 
     public MicRecord (AudioFormat format, DataLine.Info targetInfo) throws SocketException, IOException {
         this.format = format;
-        this.targetInfo = targetInfo;
+        //this.targetInfo = targetInfo;
         this.port = 12345;
         this.udpSocket = new DatagramSocket(this.port);
     }
 
     public void run() {
         CircularBuffer bufcirc;
-        TargetDataLine targetDataLine = null;
         try {
-            targetDataLine = (TargetDataLine) AudioSystem.getLine(targetInfo);
-            targetDataLine.open(format);
-            targetDataLine.start();
             System.out.println("-- Running Server at " + InetAddress.getLocalHost() + "--");
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -39,8 +35,9 @@ public class MicRecord extends Thread {
 
         while(true) {
             try {                
-                byte[] buf = new byte[640*2];
-                DatagramPacket packet = new DatagramPacket(buf, buf.length);
+                //byte[] buf = new byte[640*2];
+            	byte[] buf = new byte[3584]; //44100 , 16 , 1 CH
+            	DatagramPacket packet = new DatagramPacket(buf, buf.length);
                 udpSocket.receive(packet);
                 //String msg = new String(packet.getData()).trim();             
                 //System.out.println("Message from " + packet.getAddress().getHostAddress() + ": " + msg);

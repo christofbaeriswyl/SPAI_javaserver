@@ -11,7 +11,7 @@ public class App {
 	public static void main(String[] args) {
 		System.out.println("Playing");
 		
-		AudioFormat format = new AudioFormat(16000, 16, 1, true, false);
+		AudioFormat format = new AudioFormat(44100, 16, 1, true, false);
 		DataLine.Info targetInfo = new DataLine.Info(TargetDataLine.class, format);
 		DataLine.Info sourceInfo = new DataLine.Info(SourceDataLine.class, format);
 		try {
